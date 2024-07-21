@@ -14,13 +14,13 @@ class CreateKartuKeluargaTable extends Migration
     public function up()
     {
         Schema::create('kartu_keluarga', function (Blueprint $table) {
-            $table->id(); // Primary key autoincrement
-            $table->string('no_kk')->unique(); // Nomor KK unik
-            $table->string('nama_kk'); // Nama KK
+            $table->bigIncrements('id');
+            $table->string('no_kk', 16)->unique();
+            $table->string('nama_kk');
             $table->enum('alamat', ['Dusun 1', 'Dusun 2']); // Alamat dengan pilihan enum
-            $table->smallInteger('rt'); // RT
-            $table->smallInteger('rw'); // RW
-            $table->binary('scan_kk')->nullable();; // File scan KK (blob)
+            $table->integer('rt');
+            $table->integer('rw');
+            $table->binary('scan_kk')->nullable(); // File scan KK (blob)
 
             $table->timestamps();
         });

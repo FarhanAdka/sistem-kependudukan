@@ -12,6 +12,8 @@ class Penduduk extends Model
         'nik',
         'nama',
         'jenis_kelamin',
+        'tempat_lahir',
+        'tanggal_lahir',
         'pendidikan',
         'pekerjaan',
         'nama_ayah',
@@ -22,7 +24,7 @@ class Penduduk extends Model
     ];
     public function kartuKeluarga()
     {
-        return $this->belongsTo(KartuKeluarga::class, 'no_kk', 'no_kk'); // Relasi many-to-one dengan KartuKeluarga
+        return $this->belongsTo(KartuKeluarga::class, 'no_kk'); // Relasi many-to-one dengan KartuKeluarga
     }
 
     use HasFactory;

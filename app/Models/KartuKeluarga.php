@@ -18,7 +18,7 @@ class KartuKeluarga extends Model
     ];
     public function penduduk()
     {
-        return $this->hasMany(Penduduk::class, 'no_kk', 'no_kk'); // Relasi one-to-many dengan Penduduk
+        return $this->hasMany(Penduduk::class, 'no_kk'); // Relasi one-to-many dengan Penduduk
     }
 
     use HasFactory;
