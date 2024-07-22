@@ -45,7 +45,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/detailKK/{no_kk}',[KKController::class,'show'])->name('KK.detail.{no_kk}');
         //Update
         Route::get('/editKK/{no_kk}',[KKController::class,'edit'])->name('KK.edit.{no_kk}');
-        Route::put('/editKK/{no_kk}',[KKController::class,'update'])->name('KK.store');
+        Route::put('/editKK/{no_kk}',[KKController::class,'update'])->name('KK.update');
         Route::get('/updateKK/{no_kk}',[KKController::class,'update']);
         //Delete
         Route::delete('/deleteKK/{no_kk}', [KKController::class, 'destroy'])->name('KK.destroy.{no_kk}');
