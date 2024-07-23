@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Penduduk;
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class PendudukController extends Controller
 {
@@ -11,7 +13,13 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        //
+        $user=User::where('id',auth()->user()->id)->get()->first();
+        $info=[
+            'name'=>$user->name
+        ];
+        
+        $data=Penduduk::paginate(25);
+        return view('Page.dataPenduduk',$info)->with('data',$data);
     }
 
     /**

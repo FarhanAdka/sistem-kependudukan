@@ -42,14 +42,16 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/inputKK',[KKController::class,'create'])->name('KK.create');
         Route::post('/simpanKK',[KKController::class,'store'])->name('KK.store');
         //Read
-        Route::get('/detailKK/{no_kk}',[KKController::class,'show'])->name('KK.detail.{no_kk}');
+        Route::get('/detailKK/{id}',[KKController::class,'show'])->name('KK.detail.{no_kk}');
         //Update
-        Route::get('/editKK/{no_kk}',[KKController::class,'edit'])->name('KK.edit.{no_kk}');
-        Route::put('/editKK/{no_kk}',[KKController::class,'update'])->name('KK.update');
-        Route::get('/updateKK/{no_kk}',[KKController::class,'update']);
+        Route::get('/editKK/{id}',[KKController::class,'edit'])->name('KK.edit.{no_kk}');
+        Route::put('/editKK/{id}',[KKController::class,'update'])->name('KK.update');
+        Route::get('/updateKK/{id}',[KKController::class,'update']);
         //Delete
-        Route::delete('/deleteKK/{no_kk}', [KKController::class, 'destroy'])->name('KK.destroy.{no_kk}');
+        Route::delete('/deleteKK/{id}', [KKController::class, 'destroy'])->name('KK.destroy.{no_kk}');
         //Import
+        Route::post('/importKK', [KKController::class, 'import']);
+
         //Export
 
         //CRUD Penduduk

@@ -37,11 +37,12 @@
                     <td>{{ $data->rt }}</td>
                     <td>{{ $data->rw }}</td>
                     <td>
-                        <a href="/kartu-keluarga/{{ $data->id }}/detail" class="btn btn-info btn-sm">Detail</a>
-                        <a href="/kartu-keluarga/{{ $data->id }}/edit" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="/kartu-keluarga/{{ $data->id }}/delete" method="POST">
+                        <a href="/detailKK/{{$data->id}}" class="btn btn-info btn-sm">Detail</a>
+                        <a href="/editKK/{{ $data->id}}" class="btn btn-warning btn-sm">Edit</a>
+                        <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="/deleteKK/{{$data->id}}" method="post">
                             @csrf
-                            <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
+                            @method('DELETE')
+                            <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
                         </form>
                     </td>
                 </tr>

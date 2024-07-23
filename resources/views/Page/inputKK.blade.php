@@ -1,11 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Kartu Keluarga</title>
-</head>
-<body>
+@extends('Component.bootstrap')
+@section('content')
     <h1>Form Kartu Keluarga</h1>
 
     <form action="/simpanKK" method="POST" enctype="multipart/form-data">
@@ -34,5 +28,4 @@
 
         <button type="submit">Simpan</button>
     </form>
-</body>
-</html>
+@endsection

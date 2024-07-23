@@ -17,7 +17,8 @@ class KKController extends Controller
         $info=[
             'name'=>$user->name
         ];
-        $data=KartuKeluarga::all();
+        
+        $data=KartuKeluarga::paginate(25);
         return view('Page.dataKK',$info)->with('data',$data);
     }
 
@@ -66,7 +67,12 @@ class KKController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $kartuKeluarga = KartuKeluarga::find($id);
+        if (!$kartuKeluarga) {
+            return abort(404);
+        }
+
+        return view('Page.detailKK', compact('kartuKeluarga'));
     }
 
     /**
@@ -90,6 +96,8 @@ class KKController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        KartuKeluarga::where('id',$id)->delete();
+        return redirect()->route('KK.index')->with('success', 'Stok berhasil dihapus');
     }
+    
 }
