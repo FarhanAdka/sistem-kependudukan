@@ -47,6 +47,8 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/editKK/{id}',[KKController::class,'edit'])->name('KK.edit.{no_kk}');
         Route::put('/editKK/{id}',[KKController::class,'update'])->name('KK.update');
         Route::get('/updateKK/{id}',[KKController::class,'update']);
+        // Route::get('/editKK/{id}', [KKController::class, 'edit'])->name('K.edit.{no_kk}');
+        // Route::put('/updateKK/{id}', [KKController::class, 'update'])->name('KK.update');
         //Delete
         Route::delete('/deleteKK/{id}', [KKController::class, 'destroy'])->name('KK.destroy.{no_kk}');
         //Import
@@ -56,18 +58,18 @@ Route::middleware(['auth'])->group(function(){
 
         //CRUD Penduduk
         //Index
-        Route::get('/dataPenduduk',[PendudukController::class,'data'])->name('Penduduk.index');
+        Route::get('/dataPenduduk',[PendudukController::class,'index'])->name('Penduduk.index');
         //Create
         Route::get('/inputPenduduk',[PendudukController::class,'create'])->name('Penduduk.create');
         Route::post('/simpanPenduduk',[PendudukController::class,'store'])->name('Penduduk.store');
         //Read
-        Route::get('/detailPenduduk/{nik}',[PendudukController::class,'show'])->name('Penduduk.detail.{nik}');
+        Route::get('/detailPenduduk/{id}',[PendudukController::class,'show'])->name('Penduduk.detail.{id}');
         //Update
-        Route::get('/editPenduduk/{nik}',[PendudukController::class,'edit'])->name('Penduduk.edit.{nik}');
-        Route::put('/editPenduduk/{nik}',[PendudukController::class,'update'])->name('Penduduk.store');
-        Route::get('/updatePenduduk/{nik}',[PendudukController::class,'update']);
+        Route::get('/editPenduduk/{id}',[PendudukController::class,'edit'])->name('Penduduk.edit.{id}');
+        Route::put('/editPenduduk/{id}',[PendudukController::class,'update'])->name('Penduduk.update');
+        Route::get('/updatePenduduk/{id}',[PendudukController::class,'update']);
         //Delete
-        Route::delete('/deletePenduduk/{nik}', [PendudukController::class, 'destroy'])->name('Penduduk.destroy.{nik}');
+        Route::delete('/deletePenduduk/{id}', [PendudukController::class, 'destroy'])->name('Penduduk.destroy.{id}');
         //Import
         //Export
     });

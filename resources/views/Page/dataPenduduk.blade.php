@@ -12,7 +12,7 @@
         
         <!-- TOMBOL TAMBAH DATA -->
         <div class="pb-3">
-          <a href='/inputKK' class="btn btn-primary">+ Tambah Data</a>
+          <a href='/inputPenduduk' class="btn btn-primary">+ Tambah Data</a>
         </div>
   
         <table class="table table-striped">
@@ -35,9 +35,9 @@
                     <td>{{ $data->jenis_kelamin }}</td>
                     <td>{{ $data->status }}</td>
                     <td>
-                        <a href="/detailKK/{{$data->id}}" class="btn btn-info btn-sm">Detail</a>
-                        <a href="/editKK/{{ $data->id}}" class="btn btn-warning btn-sm">Edit</a>
-                        <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="/deleteKK/{{$data->id}}" method="post">
+                        <a href="/detailPenduduk/{{$data->id}}" class="btn btn-info btn-sm">Detail</a>
+                        <a href="/editPenduduk/{{ $data->id}}" class="btn btn-warning btn-sm">Edit</a>
+                        <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="/deletePenduduk/{{$data->id}}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
