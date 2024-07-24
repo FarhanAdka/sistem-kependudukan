@@ -5,21 +5,32 @@ namespace App\Http\Controllers;
 use App\Models\KartuKeluarga;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Penduduk;
 
 class KKController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user=User::where('id',auth()->user()->id)->get()->first();
-        $info=[
-            'name'=>$user->name
+        $user = User::where('id', auth()->user()->id)->first();
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Data Kartu Keluarga',
+            'name' => $user->name
         ];
-        
-        $data=KartuKeluarga::paginate(25);
-        return view('Page.dataKK',$info)->with('data',$data);
+
+        $katakunci = $request->get('katakunci');
+        if ($katakunci) {
+            $data = KartuKeluarga::where('no_kk', 'LIKE', "%$katakunci%")
+                ->orWhere('nama_kk', 'LIKE', "%$katakunci%")
+                ->paginate(25);
+        } else {
+            $data = KartuKeluarga::paginate(25);
+        }
+
+        return view('Page.dataKK', $info)->with('data', $data);
     }
 
     /**
@@ -28,10 +39,12 @@ class KKController extends Controller
     public function create()
     {
         $user=User::where('id',auth()->user()->id)->get()->first();
-        $info=[
-            'name'=>$user->name
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Input Kartu Keluarga',
+            'name' => $user->name
         ];
-        return view('Page.inputKK');
+        return view('Page.inputKK', $info);
     }
 
     /**
@@ -71,16 +84,20 @@ class KKController extends Controller
      */
     public function show(string $id)
     {
-        $user=User::where('id',auth()->user()->id)->get()->first();
-        $info=[
-            'name'=>$user->name
+        $user = User::where('id', auth()->user()->id)->first();
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Detail Kartu Keluarga',
+            'name' => $user->name
         ];
         $data = KartuKeluarga::find($id);
         if (!$data) {
             return abort(404);
         }
+        
+        $penduduk = Penduduk::where('no_kk', $data->no_kk)->get();
 
-        return view('Page.detailKK', compact('data', 'info'));
+        return view('Page.detailKK', array_merge($info, compact('data', 'penduduk')));
     }
 
     /**
@@ -90,6 +107,8 @@ class KKController extends Controller
     {
         $user = User::where('id', auth()->user()->id)->first();
         $info = [
+            'active_home' => 'active',
+            'title' => 'Edit Kartu Keluarga',
             'name' => $user->name
         ];
         $data = KartuKeluarga::find($id);
@@ -97,7 +116,7 @@ class KKController extends Controller
             return abort(404);
         }
 
-        return view('Page.editKK', compact('data', 'info'));
+        return view('Page.editKK', array_merge($info, compact('data')));
     }
 
     /**

@@ -1,4 +1,5 @@
 @extends('Component.bootstrap')
+@section('title', $title)
 @section('content')
 <div class="container">
     <h1>Tambah Data Penduduk</h1>

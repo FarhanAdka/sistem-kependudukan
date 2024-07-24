@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\KartuKeluarga;
+use App\Models\Penduduk;
 
 class UserController extends Controller
 {
@@ -16,19 +18,37 @@ class UserController extends Controller
     }
 
     function dashboard(){
-        $user=User::where('id',auth()->user()->id)->get()->first();
-        $info=[
-            'name'=>$user->name
+        $user = User::where('id', auth()->user()->id)->first();
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Dashboard',
+            'name' => $user->name
         ];
-        //Ambil Data KK
+        $jumlahKK = KartuKeluarga::count();
+        $jumlahPenduduk = Penduduk::count();
+        $jumlahAktif = Penduduk::where('status', 'aktif')->count();
+        $jumlahMeninggal = Penduduk::where('status', 'meninggal')->count();
+        $jumlahMasuk = Penduduk::where('status', 'masuk')->count();
+        $jumlahKeluar = Penduduk::where('status', 'keluar')->count();
+        $jumlahLahir = Penduduk::where('status', 'lahir')->count();
 
-        //Ambil Data penduduk
-        return view('Page/dashboard', $info);
+        return view('Page.dashboard', compact(
+            'info',
+            'jumlahKK', 
+            'jumlahPenduduk', 
+            'jumlahAktif', 
+            'jumlahMeninggal', 
+            'jumlahMasuk', 
+            'jumlahKeluar', 
+            'jumlahLahir'
+        ));
     }
     function profile(){
-        $user=User::where('id',auth()->user()->id)->get()->first();
-        $info=[
-            'name'=>$user->name
+        $user = User::where('id', auth()->user()->id)->first();
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Profile',
+            'name' => $user->name
         ];
         return view('Page.profile',$info); 
     }

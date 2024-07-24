@@ -1,4 +1,5 @@
 @extends('Component.bootstrap')
+@section('title', $title)
 @section('content')
     <!-- START DATA -->
     <div class="my-3 p-3 bg-body rounded shadow-sm">
@@ -28,18 +29,18 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $data)
+                @foreach ($data as $item)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->no_kk }}</td>
-                    <td>{{ $data->nama_kk }}</td>
-                    <td>{{ $data->alamat }}</td>
-                    <td>{{ $data->rt }}</td>
-                    <td>{{ $data->rw }}</td>
+                    <td>{{ $item->no_kk }}</td>
+                    <td>{{ $item->nama_kk }}</td>
+                    <td>{{ $item->alamat }}</td>
+                    <td>{{ $item->rt }}</td>
+                    <td>{{ $item->rw }}</td>
                     <td>
-                        <a href="/detailKK/{{$data->id}}" class="btn btn-info btn-sm">Detail</a>
-                        <a href="/editKK/{{ $data->id}}" class="btn btn-warning btn-sm">Edit</a>
-                        <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="/deleteKK/{{$data->id}}" method="post">
+                        <a href="/detailKK/{{$item->id}}" class="btn btn-info btn-sm">Detail</a>
+                        <a href="/editKK/{{ $item->id}}" class="btn btn-warning btn-sm">Edit</a>
+                        <form onsubmit="return confirm('Apakah anda yakin?')" class='d-inline' action="/deleteKK/{{$item->id}}" method="post">
                             @csrf
                             @method('DELETE')
                             <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
@@ -49,7 +50,9 @@
                 @endforeach
             </tbody>
         </table>
-       
+        <div class="d-flex justify-content-center">
+            {{ $data->withQueryString()->links() }}
+        </div>
   </div>
   <!-- AKHIR DATA -->
 @endsection

@@ -14,9 +14,11 @@ class PendudukController extends Controller
      */
     public function index()
     {
-        $user=User::where('id',auth()->user()->id)->get()->first();
-        $info=[
-            'name'=>$user->name
+        $user = User::where('id', auth()->user()->id)->first();
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Data Penduduk',
+            'name' => $user->name
         ];
         
         $data=Penduduk::paginate(25);
@@ -28,7 +30,13 @@ class PendudukController extends Controller
      */
     public function create()
     {
-        return view('Page.inputPenduduk');
+        $user = User::where('id', auth()->user()->id)->first();
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Data Penduduk',
+            'name' => $user->name
+        ];
+        return view('Page.inputPenduduk', $info);
     }
 
     public function store(Request $request)
@@ -65,7 +73,16 @@ class PendudukController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $user = User::where('id', auth()->user()->id)->first();
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Detail Penduduk',
+            'name' => $user->name
+        ];
+        $penduduk = Penduduk::find($id);
+        $kartuKeluarga= KartuKeluarga::where('no_kk',$penduduk->no_kk)->first();
+
+        return view('Page.detailPenduduk', compact('penduduk', 'kartuKeluarga', 'info'));
     }
 
     /**
@@ -73,15 +90,40 @@ class PendudukController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::where('id', auth()->user()->id)->first();
+        $info = [
+            'active_home' => 'active',
+            'title' => 'Edit Penduduk',
+            'name' => $user->name
+        ];
+        $data = Penduduk::findOrFail($id);
+        return view('Page.editPenduduk', compact('data','info'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nik' => 'required|string|size:16|unique:penduduk,nik,' . $id,
+            'nama' => 'required|string|max:255',
+            'jenis_kelamin' => 'required|in:laki-laki,perempuan',
+            'tempat_lahir' => 'required|string|max:255',
+            'tanggal_lahir' => 'required|date',
+            'pendidikan' => 'required|string|max:255',
+            'pekerjaan' => 'required|string|max:255',
+            'nama_ayah' => 'required|string|max:255',
+            'nama_ibu' => 'required|string|max:255',
+            'no_kk' => 'required|string|size:16|exists:kartu_keluarga,no_kk',
+            'status' => 'required|in:aktif,meninggal,lahir,masuk,keluar',
+            'keterangan' => 'nullable|string|max:255',
+        ]);
+
+        $data = Penduduk::findOrFail($id);
+        $data->update($request->all());
+
+        return redirect()->route('Penduduk.index')->with('success', 'Data penduduk berhasil diperbarui.');
     }
 
     /**
@@ -89,6 +131,7 @@ class PendudukController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Penduduk::where('id',$id)->delete();
+        return redirect()->route('Penduduk.index')->with('success', 'Stok berhasil dihapus');
     }
 }

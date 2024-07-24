@@ -1,31 +1,64 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-</head>
-
-<body class="bg-secondary">
-  <div class="bg-white container-sm col-6 border my-3 rounded px-5 py-3 pb-5">
-    <h1>Halo!!</h1>
-    <div>Selamat datang di halaman admin</div>
-    <div><a href="/logout" class="btn btn-sm btn-secondary">Logout >></a></div>
-    <div class="card mt-3">
-      <ul class="list-group list-group-flush">
-        <li class="list-group-item">Menu Operator</li>
-        <li class="list-group-item">Menu keuangan</li>
-        <li class="list-group-item">Menu Marketing</li>
-      </ul>
+@extends('Component.bootstrap')
+@section('content')
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <h2>Dashboard</h2>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Jumlah Kartu Keluarga</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $jumlahKK }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Jumlah Penduduk Total</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $jumlahPenduduk }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Jumlah Penduduk Aktif</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $jumlahAktif }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Jumlah Penduduk Meninggal</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $jumlahMeninggal }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Jumlah Penduduk Masuk</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $jumlahMasuk }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Jumlah Penduduk Keluar</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $jumlahKeluar }}</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card bg-light mb-3">
+                    <div class="card-header">Jumlah Penduduk Lahir</div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ $jumlahLahir }}</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous">
-  </script>
-</body>
-
-</html>
+@endsection

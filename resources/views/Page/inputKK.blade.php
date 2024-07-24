@@ -1,4 +1,5 @@
 @extends('Component.bootstrap')
+@section('title', $title)
 @section('content')
     <h1>Form Kartu Keluarga</h1>
 
