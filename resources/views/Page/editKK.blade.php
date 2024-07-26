@@ -8,7 +8,7 @@
             @method('PUT')
             <div class="mb-3">
                 <label for="no_kk" class="form-label">No KK</label>
-                <input type="text" class="form-control" id="no_kk" name="no_kk" value="{{ $data->no_kk }}" required>
+                <input type="text" class="form-control" id="no_kk" name="no_kk" value="{{ $data->no_kk }}" required readonly>
             </div>
             <div class="mb-3">
                 <label for="nama_kk" class="form-label">Nama KK</label>

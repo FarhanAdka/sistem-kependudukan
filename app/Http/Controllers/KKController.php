@@ -22,16 +22,40 @@ class KKController extends Controller
         ];
 
         $katakunci = $request->get('katakunci');
+        $dusun = $request->get('dusun');
+        $rt = $request->get('rt');
+        $rw = $request->get('rw');
+        $sort_by = $request->get('sort_by', 'no_kk');
+        $sort_order = $request->get('sort_order', 'asc');
+
+        $query = KartuKeluarga::query();
+
         if ($katakunci) {
-            $data = KartuKeluarga::where('no_kk', 'LIKE', "%$katakunci%")
-                ->orWhere('nama_kk', 'LIKE', "%$katakunci%")
-                ->paginate(25);
-        } else {
-            $data = KartuKeluarga::paginate(25);
+            $query->where(function($q) use ($katakunci) {
+                $q->where('no_kk', 'LIKE', "%$katakunci%")
+                ->orWhere('nama_kk', 'LIKE', "%$katakunci%");
+            });
         }
+
+        if ($dusun) {
+            $query->where('alamat', $dusun);
+        }
+
+        if ($rt) {
+            $query->where('rt', $rt);
+        }
+
+        if ($rw) {
+            $query->where('rw', $rw);
+        }
+
+        $query->orderBy($sort_by, $sort_order);
+
+        $data = $query->paginate(25);
 
         return view('Page.dataKK', $info)->with('data', $data);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -125,7 +149,6 @@ class KKController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'no_kk' => 'required|string|size:16|unique:kartu_keluarga,no_kk,' . $id,
             'nama_kk' => 'required|string|max:255',
             'alamat' => 'required|in:Dusun 1,Dusun 2',
             'rt' => 'required|integer|min:1|max:20',
@@ -138,7 +161,6 @@ class KKController extends Controller
             return abort(404);
         }
 
-        $data->no_kk = $request->no_kk;
         $data->nama_kk = $request->nama_kk;
         $data->alamat = $request->alamat;
         $data->rt = $request->rt;

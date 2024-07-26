@@ -10,9 +10,9 @@ class Kernel extends ConsoleKernel
     /**
      * Define the application's command schedule.
      */
-    protected function schedule(Schedule $schedule): void
+    protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->command('penduduk:update-status')->daily();
     }
 
     /**
@@ -24,4 +24,7 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+    protected $commands = [
+        Commands\UpdatePendudukStatus::class,
+    ];
 }

@@ -12,7 +12,7 @@ class PendudukController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $user = User::where('id', auth()->user()->id)->first();
         $info = [
@@ -20,9 +20,17 @@ class PendudukController extends Controller
             'title' => 'Data Penduduk',
             'name' => $user->name
         ];
-        
-        $data=Penduduk::paginate(25);
-        return view('Page.dataPenduduk',$info)->with('data',$data);
+
+        $katakunci = $request->get('katakunci');
+        if ($katakunci) {
+            $data = Penduduk::where('nik', 'like', "%$katakunci%")
+                            ->orWhere('nama', 'like', "%$katakunci%")
+                            ->paginate(25);
+        } else {
+            $data = Penduduk::paginate(25);
+        }
+
+        return view('Page.dataPenduduk', compact('data', 'info', 'katakunci'));
     }
 
     /**
