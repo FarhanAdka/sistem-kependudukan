@@ -1,72 +1,74 @@
 @extends('Component.bootstrap')
-@section('title', $info['title'])
+@section('title', $title)
 @section('content')
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h2>Detail Penduduk</h2>
-    <div class="mb-3">
-        <label for="nik" class="form-label">NIK</label>
-        <p>{{ $penduduk->nik }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="nama" class="form-label">Nama</label>
-        <p>{{ $penduduk->nama }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="jenis_kelamin" class="form-label">Jenis Kelamin</label>
-        <p>{{ $penduduk->jenis_kelamin }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
-        <p>{{ $penduduk->tempat_lahir }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="tanggal_lahir" class="form-label">Tanggal Lahir</label>
-        <p>{{ $penduduk->tanggal_lahir }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="pendidikan" class="form-label">Pendidikan</label>
-        <p>{{ $penduduk->pendidikan }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="pekerjaan" class="form-label">Pekerjaan</label>
-        <p>{{ $penduduk->pekerjaan }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="nama_ayah" class="form-label">Nama Ayah</label>
-        <p>{{ $penduduk->nama_ayah }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="nama_ibu" class="form-label">Nama Ibu</label>
-        <p>{{ $penduduk->nama_ibu }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="no_kk" class="form-label">No KK</label>
-        <p>{{ $penduduk->no_kk }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="nama_kk" class="form-label">Nama KK</label>
-        <p>{{ $kartuKeluarga->nama_kk }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="alamat" class="form-label">Alamat</label>
-        <p>{{ $kartuKeluarga->alamat }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="rt" class="form-label">RT</label>
-        <p>{{ $kartuKeluarga->rt }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="rw" class="form-label">RW</label>
-        <p>{{ $kartuKeluarga->rw }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="status" class="form-label">Status</label>
-        <p>{{ $penduduk->status }}</p>
-    </div>
-    <div class="mb-3">
-        <label for="keterangan" class="form-label">Keterangan</label>
-        <p>{{ $penduduk->keterangan }}</p>
-    </div>
+    <table class="table table-striped">
+        <tr>
+            <th>NIK</th>
+            <td>{{ $penduduk->nik }}</td>
+        </tr>
+        <tr>
+            <th>Nama</th>
+            <td>{{ $penduduk->nama }}</td>
+        </tr>
+        <tr>
+            <th>Jenis Kelamin</th>
+            <td>{{ $penduduk->jenis_kelamin }}</td>
+        </tr>
+        <tr>
+            <th>Tempat Lahir</th>
+            <td>{{ $penduduk->tempat_lahir }}</td>
+        </tr>
+        <tr>
+            <th>Tanggal Lahir</th>
+            <td>{{ $penduduk->tanggal_lahir }}</td>
+        </tr>
+        <tr>
+            <th>Pendidikan</th>
+            <td>{{ $penduduk->pendidikan }}</td>
+        </tr>
+        <tr>
+            <th>Pekerjaan</th>
+            <td>{{ $penduduk->pekerjaan }}</td>
+        </tr>
+        <tr>
+            <th>Nama Ayah</th>
+            <td>{{ $penduduk->nama_ayah }}</td>
+        </tr>
+        <tr>
+            <th>Nama Ibu</th>
+            <td>{{ $penduduk->nama_ibu }}</td>
+        </tr>
+        <tr>
+            <th>No KK</th>
+            <td>{{ $penduduk->no_kk }}</td>
+        </tr>
+        <tr>
+            <th>Nama KK</th>
+            <td>{{ $kartuKeluarga->nama_kk }}</td>
+        </tr>
+        <tr>
+            <th>Alamat</th>
+            <td>{{ $kartuKeluarga->alamat }}</td>
+        </tr>
+        <tr>
+            <th>RT</th>
+            <td>{{ $kartuKeluarga->rt }}</td>
+        </tr>
+        <tr>
+            <th>RW</th>
+            <td>{{ $kartuKeluarga->rw }}</td>
+        </tr>
+        <tr>
+            <th>Status</th>
+            <td>{{ $penduduk->status }}</td>
+        </tr>
+        <tr>
+            <th>Keterangan</th>
+            <td>{{ $penduduk->keterangan }}</td>
+        </tr>
+    </table>
     <a href="{{ route('Penduduk.index') }}" class="btn btn-secondary">Kembali</a>
 </div>
 @endsection

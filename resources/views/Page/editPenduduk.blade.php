@@ -3,7 +3,7 @@
 @section('content')
 <div class="my-3 p-3 bg-body rounded shadow-sm">
     <h2>Edit Penduduk</h2>
-    <form action="{{url("/editPenduduk/$data->id")}}" method="POST">
+    <form action="{{ url("/editPenduduk/$data->id") }}" method="POST">
         @csrf
         @method('PUT')
         <div class="mb-3">

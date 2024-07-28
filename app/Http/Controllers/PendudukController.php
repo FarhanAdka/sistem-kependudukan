@@ -13,25 +13,32 @@ class PendudukController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $user = User::where('id', auth()->user()->id)->first();
-        $info = [
-            'active_home' => 'active',
-            'title' => 'Data Penduduk',
-            'name' => $user->name
-        ];
+{
+    $user = User::where('id', auth()->user()->id)->first();
+    $info = [
+        'active_home' => 'active',
+        'title' => 'Data Penduduk',
+        'name' => $user->name
+    ];
 
-        $katakunci = $request->get('katakunci');
-        if ($katakunci) {
-            $data = Penduduk::where('nik', 'like', "%$katakunci%")
-                            ->orWhere('nama', 'like', "%$katakunci%")
-                            ->paginate(25);
-        } else {
-            $data = Penduduk::paginate(25);
-        }
+    $katakunci = $request->get('katakunci');
+    $status = $request->get('status');
 
-        return view('Page.dataPenduduk', compact('data', 'info', 'katakunci'));
+    $query = Penduduk::query();
+
+    if ($katakunci) {
+        $query->where('nik', 'like', "%$katakunci%")
+              ->orWhere('nama', 'like', "%$katakunci%");
     }
+
+    if ($status) {
+        $query->where('status', $status);
+    }
+
+    $data = $query->paginate(25);
+
+    return view('Page.dataPenduduk', compact('data', 'info', 'katakunci', 'status'));
+}
 
     /**
      * Show the form for creating a new resource.
@@ -80,18 +87,20 @@ class PendudukController extends Controller
      * Display the specified resource.
      */
     public function show(string $id)
-    {
-        $user = User::where('id', auth()->user()->id)->first();
-        $info = [
-            'active_home' => 'active',
-            'title' => 'Detail Penduduk',
-            'name' => $user->name
-        ];
-        $penduduk = Penduduk::find($id);
-        $kartuKeluarga= KartuKeluarga::where('no_kk',$penduduk->no_kk)->first();
+{
+    $user = User::where('id', auth()->user()->id)->first();
+    $info = [
+        'active_home' => 'active',
+        'title' => 'Detail Penduduk',
+        'name' => $user->name
+    ];
+    $penduduk = Penduduk::find($id);
+    $kartuKeluarga = KartuKeluarga::where('no_kk', $penduduk->no_kk)->first();
 
-        return view('Page.detailPenduduk', compact('penduduk', 'kartuKeluarga', 'info'));
-    }
+    return view('Page.detailPenduduk', array_merge($info, compact('penduduk', 'kartuKeluarga')));
+}
+
+
 
     /**
      * Show the form for editing the specified resource.

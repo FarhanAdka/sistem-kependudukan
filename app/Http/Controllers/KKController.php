@@ -13,48 +13,49 @@ class KKController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {
-        $user = User::where('id', auth()->user()->id)->first();
-        $info = [
-            'active_home' => 'active',
-            'title' => 'Data Kartu Keluarga',
-            'name' => $user->name
-        ];
+{
+    $user = User::where('id', auth()->user()->id)->first();
+    $info = [
+        'active_home' => 'active',
+        'title' => 'Data Kartu Keluarga',
+        'name' => $user->name
+    ];
 
-        $katakunci = $request->get('katakunci');
-        $dusun = $request->get('dusun');
-        $rt = $request->get('rt');
-        $rw = $request->get('rw');
-        $sort_by = $request->get('sort_by', 'no_kk');
-        $sort_order = $request->get('sort_order', 'asc');
+    $katakunci = $request->get('katakunci');
+    $dusun = $request->get('dusun');
+    $rt = $request->get('rt');
+    $rw = $request->get('rw');
+    $sort_by = $request->get('sort_by', 'no_kk');
+    $sort_order = $request->get('sort_order', 'asc');
 
-        $query = KartuKeluarga::query();
+    $query = KartuKeluarga::query();
 
-        if ($katakunci) {
-            $query->where(function($q) use ($katakunci) {
-                $q->where('no_kk', 'LIKE', "%$katakunci%")
-                ->orWhere('nama_kk', 'LIKE', "%$katakunci%");
-            });
-        }
-
-        if ($dusun) {
-            $query->where('alamat', $dusun);
-        }
-
-        if ($rt) {
-            $query->where('rt', $rt);
-        }
-
-        if ($rw) {
-            $query->where('rw', $rw);
-        }
-
-        $query->orderBy($sort_by, $sort_order);
-
-        $data = $query->paginate(25);
-
-        return view('Page.dataKK', $info)->with('data', $data);
+    if ($katakunci) {
+        $query->where(function($q) use ($katakunci) {
+            $q->where('no_kk', 'LIKE', "%$katakunci%")
+              ->orWhere('nama_kk', 'LIKE', "%$katakunci%");
+        });
     }
+
+    if ($dusun) {
+        $query->where('alamat', 'LIKE', "%$dusun%");
+    }
+
+    if ($rt) {
+        $query->where('rt', $rt);
+    }
+
+    if ($rw) {
+        $query->where('rw', $rw);
+    }
+
+    $query->orderBy($sort_by, $sort_order);
+
+    $data = $query->paginate(25);
+
+    return view('Page.dataKK', compact('info', 'data'));
+}
+
 
 
     /**

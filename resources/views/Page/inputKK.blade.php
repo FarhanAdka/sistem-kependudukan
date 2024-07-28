@@ -1,32 +1,55 @@
 @extends('Component.bootstrap')
 @section('title', $title)
+
 @section('content')
-    <h1>Form Kartu Keluarga</h1>
+    <!-- START INPUT KARTU KELUARGA -->
+    <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <!-- HEADER -->
+        <h2>{{ $title }}</h2>
 
-    <form action="/simpanKK" method="POST" enctype="multipart/form-data">
-        @csrf
+        <!-- FORM INPUT -->
+        <form action="/simpanKK" method="POST" enctype="multipart/form-data">
+            @csrf
+            <div class="mb-3">
+                <label for="no_kk" class="form-label">Nomor KK</label>
+                <input type="text" class="form-control" id="no_kk" name="no_kk" required maxlength="16">
+            </div>
+            <div class="mb-3">
+                <label for="nama_kk" class="form-label">Nama KK</label>
+                <input type="text" class="form-control" id="nama_kk" name="nama_kk" required>
+            </div>
+            <div class="mb-3">
+                <label for="alamat" class="form-label">Alamat</label>
+                <select class="form-control" id="alamat" name="alamat" required>
+                    <option value="Dusun 1">Dusun 1</option>
+                    <option value="Dusun 2">Dusun 2</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="rt" class="form-label">RT</label>
+                <input type="number" class="form-control" id="rt" name="rt" required min="1" max="20">
+            </div>
+            <div class="mb-3">
+                <label for="rw" class="form-label">RW</label>
+                <input type="number" class="form-control" id="rw" name="rw" required min="1" max="5">
+            </div>
+            <div class="mb-3">
+                <label for="scan_kk" class="form-label">Scan KK (PDF)</label>
+                <input type="file" class="form-control" id="scan_kk" name="scan_kk" accept=".pdf">
+            </div>
+            <button type="submit" class="btn btn-primary">Simpan</button>
+            <a href="/dataKK" class="btn btn-secondary">Batal</a>
+        </form>
+    </div>
+    <!-- AKHIR INPUT KARTU KELUARGA -->
 
-        <label for="no_kk">Nomor KK:</label>
-        <input type="text" id="no_kk" name="no_kk" required maxlength="16">
-
-        <label for="nama_kk">Nama KK:</label>
-        <input type="text" id="nama_kk" name="nama_kk" required>
-
-        <label for="alamat">Alamat:</label>
-        <select id="alamat" name="alamat" required>
-            <option value="Dusun 1">Dusun 1</option>
-            <option value="Dusun 2">Dusun 2</option>
-        </select>
-
-        <label for="rt">RT:</label>
-        <input type="number" id="rt" name="rt" required min="1" max="20">
-
-        <label for="rw">RW:</label>
-        <input type="number" id="rw" name="rw" required min="1" max="5">
-
-        <label for="scan_kk">Scan KK (PDF):</label>
-        <input type="file" id="scan_kk" name="scan_kk" accept=".pdf">
-
-        <button type="submit">Simpan</button>
-    </form>
+    <style>
+        .header {
+            margin-bottom: 20px;
+        }
+        .admin-info span {
+            display: block;
+        }
+    </style>
 @endsection
+

@@ -21,7 +21,7 @@ class UserController extends Controller
         $user = User::where('id', auth()->user()->id)->first();
         $info = [
             'active_home' => 'active',
-            'title' => 'Dashboard',
+            'title' => 'Beranda',
             'name' => $user->name
         ];
         $jumlahKK = KartuKeluarga::count();

@@ -1,9 +1,16 @@
 @extends('Component.bootstrap')
 @section('title', $title)
+
 @section('content')
+    <!-- START EDIT KARTU KELUARGA -->
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <h2>Edit Kartu Keluarga</h2>
-        <form action="{{url("/editKK/$data->id")}}" method="POST" enctype="multipart/form-data">
+        <!-- HEADER -->
+        <div class="header d-flex justify-content-between align-items-center">
+            <h2>{{ $title }}</h2>
+        </div>
+
+        <!-- FORM EDIT -->
+        <form action="{{ url("/editKK/$data->id") }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -40,4 +47,15 @@
             <a href="/detailKK/{{ $data->id }}" class="btn btn-secondary">Batal</a>
         </form>
     </div>
+    <!-- AKHIR EDIT KARTU KELUARGA -->
+
+    <style>
+        .header {
+            margin-bottom: 20px;
+        }
+        .admin-info span {
+            display: block;
+        }
+    </style>
 @endsection
+

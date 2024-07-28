@@ -1,34 +1,41 @@
 @extends('Component.bootstrap')
-@section('title', $title)
+@section('title', $info['title'])
+
 @section('content')
     <!-- START DATA -->
     <div class="my-3 p-3 bg-body rounded shadow-sm">
-        <!-- FORM PENCARIAN -->
-        <div class="pb-3">
-          <form class="d-flex" action="" method="get">
-              <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-              <select class="form-control me-1" name="dusun">
-                  <option value="">Pilih Dusun</option>
-                  <option value="Dusun 1" {{ Request::get('dusun') == 'Dusun 1' ? 'selected' : '' }}>Dusun 1</option>
-                  <option value="Dusun 2" {{ Request::get('dusun') == 'Dusun 2' ? 'selected' : '' }}>Dusun 2</option>
-              </select>
-              <input class="form-control me-1" type="number" name="rt" value="{{ Request::get('rt') }}" placeholder="RT" aria-label="RT">
-              <input class="form-control me-1" type="number" name="rw" value="{{ Request::get('rw') }}" placeholder="RW" aria-label="RW">
-              <button class="btn btn-secondary" type="submit">Cari</button>
-          </form>
+        <!-- HEADER -->
+        <div class="header d-flex justify-content-between align-items-center">
+            <h2>Data Kartu Keluarga</h2>
         </div>
-        
+
+        <!-- FORM PENCARIAN -->
+        <div class="pb-3 d-flex justify-content-between">
+            <form class="d-flex" action="" method="get">
+                <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
+                <select class="form-select me-1" name="dusun" aria-label="Filter by Dusun">
+                    <option value="">Pilih Dusun</option>
+                    <option value="Dusun 1" {{ Request::get('dusun') == 'Dusun 1' ? 'selected' : '' }}>Dusun 1</option>
+                    <option value="Dusun 2" {{ Request::get('dusun') == 'Dusun 2' ? 'selected' : '' }}>Dusun 2</option>
+                </select>
+                <input class="form-control me-1" type="number" name="rt" value="{{ Request::get('rt') }}" placeholder="RT" aria-label="RT">
+                <input class="form-control me-1" type="number" name="rw" value="{{ Request::get('rw') }}" placeholder="RW" aria-label="RW">
+                <button class="btn btn-secondary me-2" type="submit">Cari</button>
+            </form>
+        </div>
+
         <!-- TOMBOL TAMBAH DATA -->
         <div class="pb-3">
-          <a href='/inputKK' class="btn btn-primary">+ Tambah Data</a>
+            <a href='/inputKK' class="btn btn-primary">+ Tambah Data</a>
         </div>
-  
+
+        <!-- TABEL DATA -->
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th class="col-md-1">No</th>
-                    <th class="col-md-3">No. KK</th>
-                    <th class="col-md-4">Nama KK</th>
+                    <th class="col-md-2">No. KK</th>
+                    <th class="col-md-3">Nama KK</th>
                     <th class="col-md-2">Alamat</th>
                     <th class="col-md-1">RT</th>
                     <th class="col-md-1">RW</th>
@@ -57,11 +64,22 @@
                 @endforeach
             </tbody>
         </table>
-        <div class="d-flex justify-content-center">
-            {{ $data->withQueryString()->links() }}
-        </div>
-  </div>
-  <!-- AKHIR DATA -->
+        
+        <!-- PAGINATION -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {{ $data->withQueryString()->links() }}
+            </ul>
+        </nav>
+    </div>
+    <!-- AKHIR DATA -->
+
+    <style>
+        .header {
+            margin-bottom: 20px;
+        }
+        .admin-info span {
+            display: block;
+        }
+    </style>
 @endsection
-
-
