@@ -17,13 +17,14 @@ class UserController extends Controller
         return view('Page.login');
     }
 
-    function dashboard(){
+    public function dashboard(){
         $user = User::where('id', auth()->user()->id)->first();
         $info = [
             'active_home' => 'active',
             'title' => 'Beranda',
             'name' => $user->name
         ];
+    
         $jumlahKK = KartuKeluarga::count();
         $jumlahPenduduk = Penduduk::count();
         $jumlahAktif = Penduduk::where('status', 'aktif')->count();
@@ -31,7 +32,21 @@ class UserController extends Controller
         $jumlahMasuk = Penduduk::where('status', 'masuk')->count();
         $jumlahKeluar = Penduduk::where('status', 'keluar')->count();
         $jumlahLahir = Penduduk::where('status', 'lahir')->count();
-
+    
+        // Hitung jumlah Kartu Keluarga berdasarkan RW
+        $jumlahKKPerRW = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $jumlahKKPerRW[$i] = KartuKeluarga::where('rw', $i)->count();
+        }
+    
+        // Hitung jumlah Penduduk berdasarkan RW
+        $jumlahPendudukPerRW = [];
+        for ($i = 1; $i <= 5; $i++) {
+            $jumlahPendudukPerRW[$i] = Penduduk::whereHas('kartuKeluarga', function($query) use ($i) {
+                $query->where('rw', $i);
+            })->whereIn('status', ['aktif', 'masuk', 'lahir'])->count();
+        }
+    
         return view('Page.dashboard', compact(
             'info',
             'jumlahKK', 
@@ -40,9 +55,13 @@ class UserController extends Controller
             'jumlahMeninggal', 
             'jumlahMasuk', 
             'jumlahKeluar', 
-            'jumlahLahir'
+            'jumlahLahir',
+            'jumlahKKPerRW', // Pass data jumlah kartu keluarga per RW
+            'jumlahPendudukPerRW' // Pass data jumlah penduduk per RW
         ));
     }
+    
+    
     function profile(){
         $user = User::where('id', auth()->user()->id)->first();
         $info = [

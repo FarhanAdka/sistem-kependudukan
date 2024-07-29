@@ -26,7 +26,7 @@ class CreatePendudukTable extends Migration
             $table->string('nama_ibu');
             $table->string('no_kk', 16);
             $table->foreign('no_kk')->references('no_kk')->on('kartu_keluarga');
-            $table->enum('status', ['aktif', 'meninggal', 'lahir', 'masuk', 'keluar']);
+            $table->enum('status', ['aktif', 'meninggal', 'lahir', 'masuk', 'keluar'])->default('aktif');
             $table->string('keterangan')->nullable();
             $table->timestamps();
         });

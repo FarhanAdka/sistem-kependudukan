@@ -36,10 +36,12 @@
             <thead>
                 <tr>
                     <th class="col-md-1">No</th>
-                    <th class="col-md-3">NIK</th>
-                    <th class="col-md-4">Nama</th>
+                    <th class="col-md-2">NIK</th>
+                    <th class="col-md-3">Nama</th>
                     <th class="col-md-2">Jenis Kelamin</th>
                     <th class="col-md-1">Status</th>
+                    <th class="col-md-1">RT</th>
+                    <th class="col-md-1">RW</th>
                     <th class="col-md-2">Aksi</th>
                 </tr>
             </thead>
@@ -50,6 +52,8 @@
                     <td>{{ $item->nik }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->jenis_kelamin }}</td>
+                    <td>{{ $item->kartuKeluarga->rt }}</td>
+                    <td>{{ $item->kartuKeluarga->rw }}</td>
                     <td>{{ $item->status }}</td>
                     <td>
                         <a href="/detailPenduduk/{{$item->id}}" class="btn btn-info btn-sm">Detail</a>

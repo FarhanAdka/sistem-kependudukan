@@ -15,59 +15,98 @@
 
         <!-- DASHBOARD CONTENT -->
         <div class="row">
-            <div class="col-md-3 mb-3">
+            <!-- Existing Cards -->
+            <!-- ... -->
+
+            <!-- New Section: Jumlah Kartu Keluarga per RW -->
+            <div class="col-md-12 mb-3">
                 <div class="card bg-light h-100">
                     <div class="card-header">Jumlah Kartu Keluarga</div>
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <h5 class="card-title">{{ $jumlahKK }}</h5>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    @foreach (range(1, 5) as $rw)
+                                        <th>RW {{ $rw }}</th>
+                                    @endforeach
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @foreach (range(1, 5) as $rw)
+                                        <td>{{ $jumlahKKPerRW[$rw] }}</td>
+                                    @endforeach
+                                    <td>{{ $jumlahKK }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+
+            <!-- New Section: Jumlah Penduduk per RW -->
+            <div class="col-md-12 mb-3">
                 <div class="card bg-light h-100">
-                    <div class="card-header">Jumlah Penduduk Total</div>
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <h5 class="card-title">{{ $jumlahPenduduk }}</h5>
+                    <div class="card-header">Jumlah Penduduk per RW</div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    @foreach (range(1, 5) as $rw)
+                                        <th>RW {{ $rw }}</th>
+                                    @endforeach
+                                    <th>Total</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @foreach (range(1, 5) as $rw)
+                                        <td>{{ $jumlahPendudukPerRW[$rw] }}</td>
+                                    @endforeach
+                                    <td>{{ $jumlahPenduduk }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3 mb-3">
+
+            <!-- New Section: Jumlah Penduduk berdasarkan Status -->
+            <div class="col-md-12 mb-3">
                 <div class="card bg-light h-100">
-                    <div class="card-header">Jumlah Penduduk Aktif</div>
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <h5 class="card-title">{{ $jumlahAktif }}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card bg-light h-100">
-                    <div class="card-header">Jumlah Penduduk Meninggal</div>
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <h5 class="card-title">{{ $jumlahMeninggal }}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card bg-light h-100">
-                    <div class="card-header">Jumlah Penduduk Masuk</div>
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <h5 class="card-title">{{ $jumlahMasuk }}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card bg-light h-100">
-                    <div class="card-header">Jumlah Penduduk Keluar</div>
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <h5 class="card-title">{{ $jumlahKeluar }}</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 mb-3">
-                <div class="card bg-light h-100">
-                    <div class="card-header">Jumlah Penduduk Lahir</div>
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                        <h5 class="card-title">{{ $jumlahLahir }}</h5>
+                    <div class="card-header">Jumlah Penduduk berdasarkan Status</div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Jumlah</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Aktif</td>
+                                    <td>{{ $jumlahAktif }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Lahir</td>
+                                    <td>{{ $jumlahLahir }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Masuk</td>
+                                    <td>{{ $jumlahMasuk }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Meninggal</td>
+                                    <td>{{ $jumlahMeninggal }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Keluar</td>
+                                    <td>{{ $jumlahKeluar }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

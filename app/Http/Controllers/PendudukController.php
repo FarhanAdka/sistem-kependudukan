@@ -24,7 +24,7 @@ class PendudukController extends Controller
     $katakunci = $request->get('katakunci');
     $status = $request->get('status');
 
-    $query = Penduduk::query();
+    $query = Penduduk::with('kartuKeluarga');
 
     if ($katakunci) {
         $query->where('nik', 'like', "%$katakunci%")

@@ -25,7 +25,7 @@ class Penduduk extends Model
     ];
     public function kartuKeluarga()
     {
-        return $this->belongsTo(KartuKeluarga::class, 'no_kk'); // Relasi many-to-one dengan KartuKeluarga
+        return $this->belongsTo(KartuKeluarga::class, 'no_kk', 'no_kk'); // Relasi many-to-one dengan KartuKeluarga
     }
     public static function updateStatusIfBirthdayPassed()
     {
