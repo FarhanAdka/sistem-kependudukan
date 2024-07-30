@@ -31,7 +31,7 @@ Route::middleware(['auth'])->group(function(){
     Route::middleware(['userAccess:admin'])->group(function (){
         //Dashboard, profile, log aktivitas
         Route::get('/dashboard',[UserController::class,'dashboard']);
-        Route::get('/profile',[UserController::class,'profile']);
+        Route::get('/profile',[UserController::class,'profile'])->name('profile');
         Route::post('/profile/update',[UserController::class,'updateProfile'])->name('profile.update');
         //Route log
 
@@ -52,7 +52,8 @@ Route::middleware(['auth'])->group(function(){
         //Delete
         Route::delete('/deleteKK/{id}', [KKController::class, 'destroy'])->name('KK.destroy.{no_kk}');
         //Import
-        Route::post('/importKK', [KKController::class, 'import']);
+        Route::get('/importKK', [KKController::class, 'showImportForm']);
+        Route::post('/importKK', [KKController::class, 'import'])->name('KK.import');
 
         //Export
 
@@ -71,6 +72,8 @@ Route::middleware(['auth'])->group(function(){
         //Delete
         Route::delete('/deletePenduduk/{id}', [PendudukController::class, 'destroy'])->name('Penduduk.destroy.{id}');
         //Import
+        Route::get('/importPenduduk', [PendudukController::class, 'showImportForm']);
+        Route::post('/importPenduduk', [PendudukController::class, 'import'])->name('Penduduk.import');
         //Export
     });
 

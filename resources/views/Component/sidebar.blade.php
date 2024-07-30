@@ -3,7 +3,7 @@
         <li><a href='/dashboard'>Beranda</a></li>
         <li><a href='/dataKK'>Data Kartu Keluarga</a></li>
         <li><a href='/dataPenduduk'>Data Penduduk</a></li>
-        <li><a href="#">Pengaturan Akun</a></li>
+        <li><a href='/profile'>Pengaturan Akun</a></li>
         <li><a href='/logout'>Keluar</a></li>
     </ul>
 </div>

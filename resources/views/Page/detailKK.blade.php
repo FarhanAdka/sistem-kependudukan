@@ -3,6 +3,21 @@
 
 @section('content')
 <div class="my-3 p-3 bg-body rounded shadow-sm">
+    <!-- FLASH MESSAGE -->
+    @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+    @endif
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $item)
+                    <li>{{$item}}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <h2>Detail Kartu Keluarga</h2>
     <div class="row">
         <div class="col-md-6">

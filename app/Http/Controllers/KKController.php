@@ -6,6 +6,8 @@ use App\Models\KartuKeluarga;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Penduduk;
+use App\Imports\KartuKeluargaImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class KKController extends Controller
 {
@@ -103,6 +105,23 @@ class KKController extends Controller
 
         return redirect()->route('KK.index')->with('success', 'Data kartu keluarga berhasil disimpan!');
     }
+    // Function untuk menampilkan form import
+    public function showImportForm()
+    {
+        return view('Page.importKK');
+    }
+
+    // Function untuk melakukan import data
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        Excel::import(new KartuKeluargaImport, $request->file('file'));
+
+        return back()->with('success', 'Data Kartu Keluarga berhasil diimpor.');
+    }
 
     /**
      * Display the specified resource.
@@ -175,7 +194,7 @@ class KKController extends Controller
 
         $data->save();
 
-        return redirect()->route('KK.index')->with('success', 'Data Kartu Keluarga berhasil diperbarui.');
+        return redirect()->route('KK.index')->with('success', 'Data Kartu Keluarga berhasil diperbarui!');
     }
 
     /**
@@ -184,7 +203,7 @@ class KKController extends Controller
     public function destroy(string $id)
     {
         KartuKeluarga::where('id',$id)->delete();
-        return redirect()->route('KK.index')->with('success', 'Stok berhasil dihapus');
+        return redirect()->route('KK.index')->with('success', 'Data Kartu Keluarga berhasil dihapus!');
     }
     
 }

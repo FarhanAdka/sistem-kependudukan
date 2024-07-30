@@ -4,6 +4,21 @@
 @section('content')
     <!-- START INPUT KARTU KELUARGA -->
     <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <!-- FLASH MESSAGE -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $item)
+                        <li>{{$item}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <!-- HEADER -->
         <h2>{{ $title }}</h2>
 

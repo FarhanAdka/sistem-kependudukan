@@ -4,6 +4,21 @@
 @section('content')
     <!-- START DATA -->
     <div class="my-3 p-3 bg-body rounded shadow-sm">
+        <!-- FLASH MESSAGE -->
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $item)
+                        <li>{{$item}}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <!-- HEADER -->
         <div class="header d-flex justify-content-between align-items-center">
             <h2>Data Penduduk</h2>
@@ -29,6 +44,7 @@
         <!-- TOMBOL TAMBAH DATA -->
         <div class="pb-3">
             <a href='/inputPenduduk' class="btn btn-primary">+ Tambah Data</a>
+            <a href='/importPenduduk' class="btn btn-secondary">Import Data</a>
         </div>
 
         <!-- TABEL DATA -->

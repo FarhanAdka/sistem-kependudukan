@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\KartuKeluarga;
 use App\Models\Penduduk;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -72,7 +73,26 @@ class UserController extends Controller
         return view('Page.profile',$info); 
     }
     
-    function updateProfile(){
-
+    function updateProfile(Request $request){
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username,' . auth()->user()->id,
+            'password' => 'nullable|string|min:6',
+        ]);
+    
+        $admin = User::find(auth()->user()->id);
+    
+        $data = [
+            'name' => $request->name,
+            'username' => $request->username,
+        ];
+    
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+    
+        $admin->update($data);
+    
+        return redirect()->route('profile')->with('success', 'Profile berhasil diubah');
     }
 }

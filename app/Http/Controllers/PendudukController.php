@@ -6,6 +6,8 @@ use App\Models\Penduduk;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\KartuKeluarga;
+use App\Imports\PendudukImport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PendudukController extends Controller
 {
@@ -74,12 +76,29 @@ class PendudukController extends Controller
         // Cek apakah no_kk ada di tabel kartu_keluarga
         $kartuKeluarga = KartuKeluarga::where('no_kk', $request->no_kk)->first();
         if (!$kartuKeluarga) {
-            return redirect()->back()->withErrors(['no_kk' => 'No KK tidak ditemukan dalam database kartu keluarga.']);
+            return redirect()->back()->withErrors(['no_kk.exist' => 'No KK tidak ditemukan dalam database kartu keluarga!']);
         }
 
         Penduduk::create($validatedData);
 
         return redirect()->route('Penduduk.index')->with('success', 'Data penduduk berhasil disimpan!');
+    }
+
+    public function showImportForm()
+    {
+        return view('Page.importPenduduk');
+    }
+
+    // Function untuk melakukan import data
+    public function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xlsx,xls,csv',
+        ]);
+
+        Excel::import(new PendudukImport, $request->file('file'));
+
+        return back()->with('success', 'Data Penduduk berhasil diimpor.');
     }
 
 
