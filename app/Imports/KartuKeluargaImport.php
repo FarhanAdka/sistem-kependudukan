@@ -16,8 +16,8 @@ class KartuKeluargaImport implements ToModel, WithHeadingRow
     public function model(array $row)
     {
         return new KartuKeluarga([
-            'no_kk' => $row['no_kk'],
-            'nama_kk' => $row['nama_kk'],
+            'no_kk' => $row['no kk'],
+            'nama_kk' => $row['nama kk'],
             'alamat' => $row['alamat'],
             'rt' => $row['rt'],
             'rw' => $row['rw'],

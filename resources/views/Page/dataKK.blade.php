@@ -44,6 +44,7 @@
         <div class="pb-3">
             <a href='/inputKK' class="btn btn-primary">+ Tambah Data</a>
             <a href='/importKK' class="btn btn-secondary">Import Data</a>
+            <a href='/exportKK' class="btn btn-success">Export Data</a>
         </div>
 
         <!-- TABEL DATA -->

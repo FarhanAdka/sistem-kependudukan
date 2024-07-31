@@ -8,9 +8,23 @@ use App\Models\User;
 use App\Models\KartuKeluarga;
 use App\Imports\PendudukImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\PendudukExport;
+use App\Services\UpdatePendudukStatusService;
 
 class PendudukController extends Controller
 {
+    protected $updatePendudukStatusService;
+
+    public function __construct(UpdatePendudukStatusService $updatePendudukStatusService)
+    {
+        $this->updatePendudukStatusService = $updatePendudukStatusService;
+    }
+
+    public function updateStatus()
+    {
+        $message = $this->updatePendudukStatusService->updateStatus();
+        return redirect()->back()->with('success', $message);
+    }
     /**
      * Display a listing of the resource.
      */
@@ -25,22 +39,46 @@ class PendudukController extends Controller
 
     $katakunci = $request->get('katakunci');
     $status = $request->get('status');
+    $rt = $request->get('rt');
+    $rw = $request->get('rw');
 
-    $query = Penduduk::with('kartuKeluarga');
+    $query = Penduduk::with(['kartuKeluarga' => function ($query) {
+        $query->orderBy('rw')
+              ->orderBy('rt');
+    }]);
 
     if ($katakunci) {
-        $query->where('nik', 'like', "%$katakunci%")
+        $query->where(function ($q) use ($katakunci) {
+            $q->where('nik', 'like', "%$katakunci%")
               ->orWhere('nama', 'like', "%$katakunci%");
+        });
     }
 
     if ($status) {
         $query->where('status', $status);
     }
 
+    if ($rt) {
+        $query->whereHas('kartuKeluarga', function ($q) use ($rt) {
+            $q->where('rt', $rt);
+        });
+    }
+
+    if ($rw) {
+        $query->whereHas('kartuKeluarga', function ($q) use ($rw) {
+            $q->where('rw', $rw);
+        });
+    }
+
+    // Tambahkan pengurutan berdasarkan nama di tabel penduduk
+    $query->orderBy('nama');
+
     $data = $query->paginate(25);
 
-    return view('Page.dataPenduduk', compact('data', 'info', 'katakunci', 'status'));
+    return view('Page.dataPenduduk', compact('data', 'info', 'katakunci', 'status', 'rt', 'rw'));
 }
+
+
 
     /**
      * Show the form for creating a new resource.
@@ -99,6 +137,11 @@ class PendudukController extends Controller
         Excel::import(new PendudukImport, $request->file('file'));
 
         return back()->with('success', 'Data Penduduk berhasil diimpor.');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new PendudukExport, 'penduduk.xlsx');
     }
 
 

@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Penduduk;
 use App\Imports\KartuKeluargaImport;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\KartuKeluargaExport;
 
 class KKController extends Controller
 {
@@ -51,12 +52,22 @@ class KKController extends Controller
         $query->where('rw', $rw);
     }
 
-    $query->orderBy($sort_by, $sort_order);
+    // Default sorting by alamat, rw, rt, and nama_kk
+    $query->orderBy('alamat')
+          ->orderBy('rw')
+          ->orderBy('rt')
+          ->orderBy('nama_kk');
+
+    // Additional sorting if specified by user
+    if ($sort_by && $sort_order) {
+        $query->orderBy($sort_by, $sort_order);
+    }
 
     $data = $query->paginate(25);
 
     return view('Page.dataKK', compact('info', 'data'));
 }
+
 
 
 
@@ -121,6 +132,11 @@ class KKController extends Controller
         Excel::import(new KartuKeluargaImport, $request->file('file'));
 
         return back()->with('success', 'Data Kartu Keluarga berhasil diimpor.');
+    }
+
+    public function export() 
+    {
+        return Excel::download(new KartuKeluargaExport, 'kartu_keluarga.xlsx');
     }
 
     /**

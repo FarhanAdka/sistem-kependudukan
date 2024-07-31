@@ -19,6 +19,7 @@
                 </ul>
             </div>
         @endif
+        
         <!-- HEADER -->
         <div class="header d-flex justify-content-between align-items-center">
             <h2>Data Penduduk</h2>
@@ -28,16 +29,17 @@
         <div class="pb-3 d-flex justify-content-between">
             <form class="d-flex" action="" method="get">
                 <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
-                <button class="btn btn-secondary me-2" type="submit">Cari</button>
                 <select class="form-select me-1" name="status" aria-label="Filter by Status">
                     <option value="">Tampilkan</option>
                     <option value="aktif" {{ Request::get('status') == 'aktif' ? 'selected' : '' }}>Aktif</option>
-                    <option value="wafat" {{ Request::get('status') == 'wafat' ? 'selected' : '' }}>Meninggal</option>
+                    <option value="meninggal" {{ Request::get('status') == 'meninggal' ? 'selected' : '' }}>Meninggal</option>
                     <option value="lahir" {{ Request::get('status') == 'lahir' ? 'selected' : '' }}>Lahir</option>
                     <option value="masuk" {{ Request::get('status') == 'masuk' ? 'selected' : '' }}>Masuk</option>
                     <option value="keluar" {{ Request::get('status') == 'keluar' ? 'selected' : '' }}>Keluar</option>
                 </select>
-                <button class="btn btn-primary" type="submit">Terapkan</button>
+                <input class="form-control me-1" type="number" name="rt" value="{{ Request::get('rt') }}" placeholder="RT" aria-label="RT">
+                <input class="form-control me-1" type="number" name="rw" value="{{ Request::get('rw') }}" placeholder="RW" aria-label="RW">
+                <button class="btn btn-primary" type="submit">Cari</button>
             </form>
         </div>
 
@@ -45,6 +47,8 @@
         <div class="pb-3">
             <a href='/inputPenduduk' class="btn btn-primary">+ Tambah Data</a>
             <a href='/importPenduduk' class="btn btn-secondary">Import Data</a>
+            <a href='/exportPenduduk' class="btn btn-success">Export Data</a>
+            <a href="{{ route('status.update') }}" class="btn btn-primary">Update Status Penduduk</a>
         </div>
 
         <!-- TABEL DATA -->
@@ -55,9 +59,9 @@
                     <th class="col-md-2">NIK</th>
                     <th class="col-md-3">Nama</th>
                     <th class="col-md-2">Jenis Kelamin</th>
-                    <th class="col-md-1">Status</th>
                     <th class="col-md-1">RT</th>
                     <th class="col-md-1">RW</th>
+                    <th class="col-md-1">Status</th>
                     <th class="col-md-2">Aksi</th>
                 </tr>
             </thead>

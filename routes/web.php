@@ -54,12 +54,13 @@ Route::middleware(['auth'])->group(function(){
         //Import
         Route::get('/importKK', [KKController::class, 'showImportForm']);
         Route::post('/importKK', [KKController::class, 'import'])->name('KK.import');
-
         //Export
+        Route::get('/exportKK', [KKController::class, 'export'])->name('KK.export');
 
         //CRUD Penduduk
         //Index
         Route::get('/dataPenduduk',[PendudukController::class,'index'])->name('Penduduk.index');
+        Route::get('/updateStatus', [PendudukController::class, 'updateStatus'])->name('status.update');
         //Create
         Route::get('/inputPenduduk',[PendudukController::class,'create'])->name('Penduduk.create');
         Route::post('/simpanPenduduk',[PendudukController::class,'store'])->name('Penduduk.store');
@@ -75,6 +76,7 @@ Route::middleware(['auth'])->group(function(){
         Route::get('/importPenduduk', [PendudukController::class, 'showImportForm']);
         Route::post('/importPenduduk', [PendudukController::class, 'import'])->name('Penduduk.import');
         //Export
+        Route::get('/exportPenduduk', [PendudukController::class, 'export'])->name('Penduduk.export');
     });
 
     //Logout
