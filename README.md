@@ -11,14 +11,5 @@
 * **Dashboard**, Displays data on the population and Family Card conditions for each Neighborhood Association (RW) in Banglarangan Village.
 * **Kartu Keluarga management**, Includes features for adding, deleting, updating, importing Excel, and exporting Excel data for Family Cards.
 * **Penduduk management**, Includes features for adding, deleting, updating, importing Excel, and exporting Excel data for residents.
-  
-**Challenges and Solutions:**
-* Addapted the system to existing computer hardware. The solution involved using a development framework version that was easily integrated.
-
-**Learnings:**
-* Gained experience in the web application development workflow using the Laravel framework.
-* Gained experience in the web application development workflow using Laragon.
-* Acquired experience in designing and developing application business processes.
-* Learned to work in a team using a version control system (Git).
 
 **Note:** The design is still in HTML and Bootstrap, so it is not yet interactive. Interactive design needs to be added, as well as the addition of existing Family Card options in the resident data addition form.
